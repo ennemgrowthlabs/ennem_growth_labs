@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProjectStatus {
+  LIVE
+  BUILDING
+  COMING
+}
+
+enum ProjectKind {
+  PRODUCT
+  CLIENT
+  SERVICE
+}
+
+model Team {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  tagline     String
+  description String    @db.Text
+  members     Member[]
+  projects    Project[]
+}
+
+model Member {
+  id        String          @id @default(cuid())
+  name      String
+  role      String
+  bio       String          @db.Text
+  skills    Json
+  photo     String?
+  github    String?
+  linkedin  String?
+  years     Int             @default(0)
+  isLead    Boolean         @default(false)
+  replaceMe Boolean         @default(true)
+  teamId    String
+  team      Team            @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  projects  ProjectMember[]
+}
+
+model Project {
+  id        String          @id @default(cuid())
+  title     String
+  slug      String          @unique
+  summary   String          @db.Text
+  content   String          @db.Text
+  problem   String          @db.Text
+  solution  String          @db.Text
+  cover     String?
+  liveUrl   String?
+  appUrl    String?
+  status    ProjectStatus   @default(LIVE)
+  kind      ProjectKind     @default(CLIENT)
+  industry  String
+  year      Int
+  stack     Json
+  results   Json
+  featured  Boolean         @default(false)
+  sortOrder Int             @default(0)
+  teamId    String
+  team      Team            @relation(fields: [teamId], references: [id])
+  members   ProjectMember[]
+}
+
+model ProjectMember {
+  projectId String
+  memberId  String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, memberId])
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String   @db.Text
+  content     String   @db.LongText
+  cover       String?
+  published   Boolean  @default(true)
+  tags        Json
+  readingMins Int      @default(6)
+  createdAt   DateTime @default(now())
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  budget    String?
+  teamNeeded String?
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+}
+
+model Job {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  squad       String
+  location    String   @default("Theni / Remote")
+  type        String   @default("Full-time")
+  description String   @db.Text
+  active      Boolean  @default(true)
+}
+
+model Application {
+  id        String   @id @default(cuid())
+  jobSlug   String
+  name      String
+  email     String
+  portfolio String?
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+}
