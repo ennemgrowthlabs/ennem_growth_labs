@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Work",
   description:
-    "TaskWagon, GIFT, Snapvy, Lumen, and live WooCommerce stores shipped by Ennem Growth Labs in Theni.",
+    "TaskWagon, GIFT, Snapvy, Lumen, and live client sites shipped by Ennem Growth Labs in Theni.",
   path: "/work",
 });
 

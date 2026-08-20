@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/services/full-stack",
     "/services/automation",
-    "/services/wordpress",
     "/tech",
     "/about",
     "/careers",

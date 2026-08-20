@@ -3,7 +3,7 @@ export const SITE = {
   short: "EGL",
   tagline: "Build. Automate. Grow.",
   description:
-    "Product and engineering studio in Theni. We ship SaaS, automation, and high-performance WordPress for brands across Tamil Nadu and beyond.",
+    "Product and engineering studio in Theni. We ship SaaS, APIs, and automation — TaskWagon, GIFT, Snapvy, and Lumen — for brands across Tamil Nadu and beyond.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   phone: "+91 63838 40619",
   phoneHref: "tel:+916383840619",
@@ -19,7 +19,7 @@ export const SITE = {
   stats: [
     { label: "Brands transformed", value: "63", suffix: "+" },
     { label: "Products in flight", value: "6", suffix: "" },
-    { label: "Squads", value: "3", suffix: "" },
+    { label: "Squads", value: "2", suffix: "" },
     { label: "Client retention", value: "98", suffix: "%" },
   ],
   sister: [
@@ -101,16 +101,6 @@ export const TEAMS: {
     stack: ["n8n", "Make", "WhatsApp", "OpenAI", "Redis", "BullMQ"],
     href: "/teams/automation",
     accent: "cyan",
-  },
-  {
-    slug: "wordpress",
-    name: "WordPress Team",
-    tagline: "WooCommerce, speed, SEO, migrations",
-    description:
-      "Stores that sell. Custom themes, Core Web Vitals, and launches for D2C and B2B brands we still host and grow.",
-    stack: ["WordPress", "WooCommerce", "PHP", "MySQL", "SEO"],
-    href: "/teams/wordpress",
-    accent: "lime",
   },
 ];
 
@@ -238,7 +228,7 @@ export const PROJECTS: Project[] = [
     title: "Ennem Growth Analytics",
     summary: "Ecommerce analytics dashboard for Ennem stores and client WooCommerce brands.",
     content:
-      "Internal analytics product: store performance, ads-to-revenue views, and ops dashboards for the WordPress catalogue we already run.",
+      "Internal analytics product: store performance, ads-to-revenue views, and ops dashboards for Labs products and client sites we already run.",
     problem: "Store metrics live in five admin panels. Nobody sees a single growth number.",
     solution: "Vite dashboard + Node/MySQL warehouse. Status: building — HUD badge, no fake URL.",
     status: "BUILDING",
@@ -277,7 +267,7 @@ export const PROJECTS: Project[] = [
     summary: "India’s menstrual-cup D2C store — medical-grade silicone, reusable for years.",
     content: "WooCommerce D2C storefront for Elquora. Featured on the Ennem Marketing homepage.",
     problem: "A D2C health brand needed a store that could rank and convert, not a catalogue PDF.",
-    solution: "WooCommerce, SEO structure, and growth ops from the WordPress squad.",
+    solution: "Storefront, SEO structure, and growth ops for a live D2C catalogue.",
     liveUrl: "https://elquora.com/",
     status: "LIVE",
     kind: "CLIENT",
@@ -532,24 +522,6 @@ export const MEMBERS = [
     isLead: false,
     teamSlug: "automation" as TeamSlug,
   },
-  {
-    name: "Squad Lead — REPLACE_ME",
-    role: "WordPress Lead",
-    bio: "WooCommerce launches and Core Web Vitals for the live store list. REPLACE_ME.",
-    skills: ["WooCommerce", "PHP", "SEO", "CWV"],
-    years: 0,
-    isLead: true,
-    teamSlug: "wordpress" as TeamSlug,
-  },
-  {
-    name: "Engineer — REPLACE_ME",
-    role: "WordPress Developer",
-    bio: "Themes, migrations, and store performance. Placeholder card.",
-    skills: ["WordPress", "WooCommerce", "MySQL"],
-    years: 0,
-    isLead: false,
-    teamSlug: "wordpress" as TeamSlug,
-  },
 ];
 
 export const POSTS = [
@@ -599,22 +571,6 @@ Tenant scoping, cuid ids, JSON columns for stack arrays, and seed scripts that l
 
 That is how we keep DDCarz-style chatbot work from becoming a second database.`,
   },
-  {
-    slug: "woocommerce-core-web-vitals",
-    title: "WooCommerce that still passes Core Web Vitals",
-    excerpt:
-      "Elquora and Theni Thaniyam cannot ship as theme soup. Image, font, and plugin rules we actually use.",
-    tags: ["WordPress", "SEO"],
-    readingMins: 6,
-    content: `A store that looks premium and paints in 4 seconds loses the ranking.
-
-## Rules
-- next-gen images on heroes (even on WP).
-- No page-builder chrome on PDPs.
-- Caching headers and a real CDN.
-
-The WordPress squad treats CWV as a sprint item, not a post-launch wish.`,
-  },
 ];
 
 export const JOBS = [
@@ -635,14 +591,6 @@ export const JOBS = [
     type: "Full-time",
     description:
       "Lumen flows, Meta Cloud API, and client chatbots. REPLACE_ME for JD depth.",
-  },
-  {
-    slug: "wordpress-woo",
-    title: "WordPress / WooCommerce Engineer",
-    squad: "wordpress",
-    location: "Theni",
-    type: "Full-time",
-    description: "Stores, CWV, migrations. REPLACE_ME for JD depth.",
   },
 ];
 
@@ -748,14 +696,6 @@ export const PRODUCT_STACKS: {
     ],
   },
   {
-    name: "WooCommerce stores",
-    slug: "wordpress-stores",
-    status: "LIVE",
-    href: "/teams/wordpress",
-    role: "WordPress squad",
-    stack: ["WordPress", "WooCommerce", "PHP", "MySQL", "Core Web Vitals"],
-  },
-  {
     name: "Ennem AI Studio",
     slug: "ai-studio",
     status: "LIVE",
@@ -855,8 +795,8 @@ export const TECH_MAP: {
     items: [
       {
         name: "MySQL",
-        why: "Hostinger + Docker + every WooCommerce store already speak it.",
-        usedOn: ["All products", "WP stores"],
+        why: "Hostinger + Docker + every Labs product already speak it.",
+        usedOn: ["All products"],
         status: "LIVE",
       },
       {
@@ -928,7 +868,7 @@ export const TECH_MAP: {
       {
         name: "WhatsApp Cloud API",
         why: "Lead follow-up that hits the phone — Meta / Twilio, not a browser tab.",
-        usedOn: ["Lumen", "AI Studio", "Stores"],
+        usedOn: ["Lumen", "AI Studio"],
         status: "LIVE",
       },
       {
@@ -948,30 +888,6 @@ export const TECH_MAP: {
         why: "Visual bot builder inside Lumen instead of a YAML graveyard.",
         usedOn: ["Lumen"],
         status: "BUILDING",
-      },
-    ],
-  },
-  {
-    layer: "WordPress",
-    accent: "lime",
-    items: [
-      {
-        name: "WooCommerce",
-        why: "D2C and B2B catalogues we still host — Elquora, Theni Thaniyam, DFWIN, and more.",
-        usedOn: ["Elquora", "Theni Thaniyam", "12+ stores"],
-        status: "LIVE",
-      },
-      {
-        name: "Custom themes / PHP",
-        why: "Not a ThemeForest clone. Speed and checkout are the product.",
-        usedOn: ["Jewellery", "Baby", "B2B"],
-        status: "LIVE",
-      },
-      {
-        name: "Core Web Vitals",
-        why: "Ranking is a sprint: images, fonts, and cache — not another plugin.",
-        usedOn: ["WP stores"],
-        status: "LIVE",
       },
     ],
   },

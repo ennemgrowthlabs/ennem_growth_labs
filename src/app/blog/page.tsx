@@ -6,14 +6,14 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Journal",
   description:
-    "Notes from Ennem Growth Labs on Next.js, Prisma, WhatsApp automation, and WooCommerce speed.",
+    "Notes from Ennem Growth Labs on Next.js, Prisma, and WhatsApp automation.",
   path: "/blog",
 });
 
 export default function BlogPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-24 pt-12">
-      <SectionHeading kicker="Journal" title="Field notes from the three squads" />
+      <SectionHeading kicker="Journal" title="Field notes from the labs" />
       <div className="mt-10 space-y-4">
         {POSTS.map((p) => (
           <Link key={p.slug} href={`/blog/${p.slug}`} className="glass block p-6 hover:glow-ember">

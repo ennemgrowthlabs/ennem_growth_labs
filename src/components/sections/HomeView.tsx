@@ -57,7 +57,7 @@ export function HomeView() {
             variants={fade}
             className="mt-6 max-w-xl text-lg text-white/65 md:text-xl"
           >
-            {SITE.tagline} Three squads. Own products first — TaskWagon, GIFT, Snapvy, Lumen —
+            {SITE.tagline} Two squads. Own products first — TaskWagon, GIFT, Snapvy, Lumen —
             then stores that already sell.
           </motion.p>
           <motion.div
@@ -108,10 +108,10 @@ export function HomeView() {
       <section className="mx-auto max-w-6xl px-4 py-10">
         <SectionHeading
           kicker="Squad select"
-          title="Three teams. One launch bar."
-          body="Full stack ships products. Automation runs the follow-up. WordPress keeps the stores converting."
+          title="Two teams. One launch bar."
+          body="Full stack ships products. Automation runs the follow-up — WhatsApp, n8n, and Lumen."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
           {TEAMS.map((t, i) => (
             <motion.a
               key={t.slug}
@@ -160,7 +160,7 @@ export function HomeView() {
         <SectionHeading
           kicker="Client work"
           title="Stores and sites already live"
-          body="WordPress squad catalogue — every card that has a URL visits the real domain."
+          body="Live client sites we shipped — every card that has a URL visits the real domain."
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured

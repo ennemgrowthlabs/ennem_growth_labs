@@ -24,7 +24,7 @@ export default function AboutPage() {
           our own SaaS: TaskWagon, GIFT, Snapvy, and Lumen.
         </p>
         <p>
-          Growth Labs is the engineering brand. Three squads. Full stack, automation, WordPress.
+          Growth Labs is the engineering brand. Two squads: full stack and automation.
           We do not pretend the marketing about page roster is real — team photos stay REPLACE_ME
           until people are confirmed.
         </p>

@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "Contact",
-  description: "Hire Ennem Growth Labs in Theni — full stack, automation, or WordPress.",
+  description: "Hire Ennem Growth Labs in Theni — full stack or automation.",
   path: "/contact",
 });
 

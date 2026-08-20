@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Services",
   description:
-    "Full stack SaaS, WhatsApp automation, and WooCommerce — three Ennem Growth Labs squads in Theni.",
+    "Full stack SaaS and WhatsApp automation — two Ennem Growth Labs squads in Theni.",
   path: "/services",
 });
 
@@ -18,7 +18,7 @@ export default function ServicesPage() {
         title="Pick a squad, not a vague retainers menu."
         body="Each lane has a deep page: stack, deliverables, and the live work behind it."
       />
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-12 grid gap-5 md:grid-cols-2">
         {TEAMS.map((t) => (
           <Link key={t.slug} href={`/services/${t.slug}`} className="glass block p-6 hover:glow-ember">
             <h2 className="font-display text-2xl">{t.name.replace(" Team", "")}</h2>

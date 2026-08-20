@@ -22,7 +22,6 @@ export const metadata = {
     "Snapvy",
     "GIFT",
     "Next.js",
-    "WordPress Theni",
     "WhatsApp automation",
   ],
   openGraph: {

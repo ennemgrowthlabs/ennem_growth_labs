@@ -11,7 +11,7 @@ const FILTERS: { id: string; label: string }[] = [
   { id: "PRODUCT", label: "Products" },
   { id: "full-stack", label: "Full Stack" },
   { id: "automation", label: "Automation" },
-  { id: "wordpress", label: "WordPress" },
+  { id: "CLIENT", label: "Client sites" },
 ];
 
 export function WorkGrid() {
@@ -21,6 +21,7 @@ export function WorkGrid() {
     return PROJECTS.filter((p) => {
       if (filter === "all") return true;
       if (filter === "PRODUCT") return p.kind === ("PRODUCT" as ProjectKind);
+      if (filter === "CLIENT") return p.kind === ("CLIENT" as ProjectKind);
       return p.teamSlug === (filter as TeamSlug);
     }).sort((a, b) => a.sortOrder - b.sortOrder);
   }, [filter]);

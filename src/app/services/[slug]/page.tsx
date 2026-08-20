@@ -27,16 +27,6 @@ const PLAYBOOK: Record<
       "Campaign queues that do not block support",
     ],
   },
-  wordpress: {
-    does:
-      "Custom themes, WooCommerce, Core Web Vitals, migrations — Elquora through DFWIN.",
-    deliverables: [
-      "Store or business site",
-      "CWV pass on templates",
-      "SEO basics (titles, schema, sitemap)",
-      "Handover + 30-day hypercare",
-    ],
-  },
 };
 
 type Props = { params: Promise<{ slug: string }> };

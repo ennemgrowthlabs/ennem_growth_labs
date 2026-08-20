@@ -76,7 +76,6 @@ export function ContactForm() {
           <option value="">Any</option>
           <option>Full Stack</option>
           <option>Automation</option>
-          <option>WordPress</option>
           <option>Product (TaskWagon / Snapvy / Lumen)</option>
         </select>
       </Field>

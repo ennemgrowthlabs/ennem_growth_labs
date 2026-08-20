@@ -29,6 +29,17 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "ai.ennemmarketings.com" },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/teams/wordpress", destination: "/work", permanent: false },
+      { source: "/services/wordpress", destination: "/services", permanent: false },
+      {
+        source: "/blog/woocommerce-core-web-vitals",
+        destination: "/blog",
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {

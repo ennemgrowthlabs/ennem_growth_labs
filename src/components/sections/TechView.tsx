@@ -33,10 +33,10 @@ export function TechView() {
           <SectionHeading
             kicker="Production kit"
             title="The stack we actually run"
-            body="Not a logo wall of tools we tried once. This is the dialect across TaskWagon, GIFT, Snapvy, Lumen, this site, and the WooCommerce stores we still host from Theni."
+            body="Not a logo wall of tools we tried once. This is the dialect across TaskWagon, GIFT, Snapvy, Lumen, and this site — the stack Labs actually hires for."
           />
           <div className="mt-8 flex flex-wrap gap-2">
-            {["TaskWagon", "GIFT", "Snapvy", "Lumen", "WooCommerce", "WhatsApp Cloud"].map((tag) => (
+            {["TaskWagon", "GIFT", "Snapvy", "Lumen", "Next.js", "WhatsApp Cloud"].map((tag) => (
               <span
                 key={tag}
                 className="border border-cyan/25 bg-cyan/5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-cyan"
@@ -206,7 +206,7 @@ export function TechView() {
         <div className="mt-14 border border-white/10 bg-ember/10 p-8 text-center">
           <p className="font-display text-2xl text-white md:text-3xl">Need this kit on your product?</p>
           <p className="mx-auto mt-3 max-w-lg text-white/55">
-            Full stack, automation, or WordPress — we ship with the same dialect you see here.
+            Full stack or automation — we ship with the same dialect you see here.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button href="/contact">Hire a squad</Button>

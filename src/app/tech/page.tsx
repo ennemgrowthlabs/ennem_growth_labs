@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Tech stack",
   description:
-    "Next.js, React Native, Prisma, MySQL, Docker, n8n, WhatsApp Cloud API, WooCommerce — the production kit Ennem Growth Labs runs in Theni.",
+    "Next.js, React Native, Prisma, MySQL, Docker, n8n, WhatsApp Cloud API — the production kit Ennem Growth Labs hires and ships with in Theni.",
   path: "/tech",
 });
 

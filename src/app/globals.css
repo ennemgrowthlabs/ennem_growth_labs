@@ -39,9 +39,7 @@ body {
 }
 
 .has-hud-cursor,
-.has-hud-cursor a,
-.has-hud-cursor button,
-.has-hud-cursor [data-magnetic] {
+.has-hud-cursor * {
   cursor: none !important;
 }
 
