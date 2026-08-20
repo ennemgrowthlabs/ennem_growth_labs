@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "littlebabe.in" },
       { protocol: "https", hostname: "ennemholidays.com" },
       { protocol: "https", hostname: "ennemmarketings.com" },
-      { protocol: "https", hostname: "ai.ennemmarketings.com" },
+      { protocol: "https", hostname: "thenimart.com" },
     ],
   },
   async redirects() {

@@ -9,6 +9,8 @@ import {
   TESTIMONIALS,
   domainOf,
   featuredProjects,
+  n8nProjects,
+  N8N_SLUGS,
   products,
 } from "@/lib/data";
 import { HeroScan } from "@/components/motion/HeroScan";
@@ -24,6 +26,7 @@ const fade = {
 export function HomeView() {
   const featured = featuredProjects();
   const own = products();
+  const automations = n8nProjects();
   const domains = PROJECTS.filter((p) => p.liveUrl).map((p) => domainOf(p.liveUrl));
 
   return (
@@ -158,13 +161,35 @@ export function HomeView() {
 
       <section className="mx-auto max-w-6xl px-4 py-16">
         <SectionHeading
+          kicker="Automation"
+          title="n8n systems we actually run"
+          body="Not a Zap catalogue. Search audits, Thenimart NiBot, WhatsApp RAG, lead sheets, GST logging, and an AI marketing desk — with real outputs."
+        />
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {automations.map((p) => (
+            <ProjectCard key={p.slug} project={p} />
+          ))}
+        </div>
+        <div className="mt-8">
+          <Button href="/work" variant="ghost">
+            Filter: Automation
+          </Button>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <SectionHeading
           kicker="Client work"
           title="Stores and sites already live"
           body="Live client sites we shipped — every card that has a URL visits the real domain."
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured
-            .filter((p) => p.kind !== "PRODUCT")
+            .filter(
+              (p) =>
+                p.kind !== "PRODUCT" &&
+                !N8N_SLUGS.includes(p.slug as (typeof N8N_SLUGS)[number]),
+            )
             .map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}

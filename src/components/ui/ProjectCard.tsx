@@ -77,12 +77,19 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
           >
             Visit {domainOf(visit)} →
           </a>
-        ) : (
+        ) : project.status === "BUILDING" ? (
           <Link
             href="/contact"
             className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber-300"
           >
             Early access →
+          </Link>
+        ) : (
+          <Link
+            href={href}
+            className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan hover:text-white"
+          >
+            How it runs →
           </Link>
         )}
       </div>

@@ -65,7 +65,7 @@ async function main() {
         results: p.results,
         featured: p.featured,
         sortOrder: p.sortOrder,
-        teamId: teamBySlug[p.teamSlug].id,
+        teamId: (teamBySlug[p.teamSlug] ?? teamBySlug["full-stack"]).id,
       },
     });
   }

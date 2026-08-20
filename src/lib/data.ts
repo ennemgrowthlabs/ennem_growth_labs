@@ -97,7 +97,7 @@ export const TEAMS: {
     name: "Automation Team",
     tagline: "Bots, flows, CRM, WhatsApp, n8n",
     description:
-      "AI workflows, multi-channel bots, and lead ops. Lumen/Nexus, n8n/Make/Zapier, Meta WhatsApp, Telegram, and reporting that does not live in a spreadsheet.",
+      "AI workflows we run in n8n today: Full AI Search Audit, Thenimart NiBot, WhatsApp RAG + lead capture, Telegram GST logger, and the AI Marketing Team desk. Lumen/Nexus is the long game.",
     stack: ["n8n", "Make", "WhatsApp", "OpenAI", "Redis", "BullMQ"],
     href: "/teams/automation",
     accent: "cyan",
@@ -126,6 +126,10 @@ export type Project = {
   sortOrder: number;
   teamSlug: TeamSlug;
   productHref?: string;
+  usage?: string;
+  features?: string[];
+  workflow?: { step: string; title: string; body: string }[];
+  gallery?: string[];
 };
 
 export const PROJECTS: Project[] = [
@@ -262,6 +266,354 @@ export const PROJECTS: Project[] = [
     teamSlug: "automation",
   },
   {
+    slug: "ai-search-audit",
+    title: "Full AI Search Audit",
+    summary:
+      "One URL in. Six GPT-4o-mini agents out — Technical SEO, Content SEO, auto-fixes, AIO, AEO, and GEO — emailed as a Markdown report.",
+    content:
+      "This is a live n8n engine, not a slide deck. A client (or our own product team) pastes a landing URL into an n8n form. The workflow scrapes the live HTML, fans out to six specialised GPT-4o-mini agents in parallel, merges their findings, formats a full Markdown report, writes it to Google Docs, and emails it on Gmail. WhatsApp delivery exists on the canvas and is toggled off until a campaign needs it. We ran it against TaskWagon and got a real scorecard: missing meta description and H1, AIO/AEO/GEO readiness at 3/10, plus ready-to-paste JSON for title, description, headings, alt text, and LocalBusiness schema.",
+    problem:
+      "SEO, Google AI Overviews, featured snippets, and ChatGPT/Perplexity citations are four different jobs. Agencies still do them as four retainers.",
+    solution:
+      "One scrape. Six agents. One report. Technical SEO finds code-level gaps. Content SEO scores keywords and readability. SEO Fix Generator returns JSON (meta, H1/H2, alt, schema). AIO scores Google AI Overviews. AEO scores featured snippets and voice. GEO scores citability in ChatGPT, Claude, and Perplexity.",
+    status: "LIVE",
+    kind: "PRODUCT",
+    industry: "SEO / AI Search",
+    year: 2026,
+    stack: ["n8n", "GPT-4o-mini", "Web scrape", "Google Docs", "Gmail"],
+    results: [
+      "Real TaskWagon run: missing meta + H1 called out with copy-paste fixes",
+      "AIO / AEO / GEO readiness scored (3) with FAQ and snippet rewrites",
+      "Auto JSON: meta_title, meta_description, schema LocalBusiness",
+    ],
+    featured: true,
+    sortOrder: 7,
+    teamSlug: "automation",
+    usage:
+      "In production we treat this as a 10-minute intake. Paste taskwagon.com (or any client URL) into the n8n form. While you stay on the call, scrape → six agents → Merge All → Aggregator → Format Full Report → Google Doc + Gmail. The operator does not rewrite the audit; they send the Doc link. Same-day use: ship the JSON block to the Full Stack squad for metadata and schema on the Next.js site.",
+    features: [
+      "n8n Form Trigger — single URL field, no custom app",
+      "Live HTML scrape of the submitted landing page",
+      "Six parallel OpenAI agents (not one mega-prompt)",
+      "Merge + Markdown formatter → Google Docs",
+      "Gmail delivery; WhatsApp notify node on the canvas (deactivated)",
+    ],
+    workflow: [
+      {
+        step: "01",
+        title: "Form + scrape",
+        body: "Operator submits the URL. n8n pulls the live HTML so agents see what Google and AI crawlers see — not a screenshot of the SPA.",
+      },
+      {
+        step: "02",
+        title: "Six agents in parallel",
+        body: "Technical SEO, Content SEO, SEO Fix Generator, AIO (AI Overviews), AEO (snippets + voice), GEO (ChatGPT / Claude / Perplexity citations).",
+      },
+      {
+        step: "03",
+        title: "Merge + format",
+        body: "Merge All + Aggregator stitch sections 1–6 into one Markdown pack: critical issues, quick wins, opportunities, JSON fixes.",
+      },
+      {
+        step: "04",
+        title: "Deliver",
+        body: "Google Docs document is created. Gmail sends the report. WhatsApp is wired but off until the client wants chat delivery.",
+      },
+    ],
+    gallery: [
+      "/automation/ai-search-workflow.png",
+      "/automation/ai-search-aeo-geo.png",
+      "/automation/ai-search-fixes.png",
+    ],
+  },
+  {
+    slug: "thenimart-nibot",
+    title: "Thenimart NiBot",
+    summary:
+      "Multi-agent shopping assistant on thenimart.com — intent routing for orders, product recs, and support tickets in English and Tamil.",
+    content:
+      "NiBot is the chat widget on Thenimart (Ennem’s marketplace). A webhook takes the shopper’s message plus a session id. An intent agent (NiBot) appends JSON such as order_status or support_ticket. A Code node extracts the intent; a Switch fans out to three specialists: Order Specialist (Supabase, live delivery by order id), Shopping Concierge (catalogue search + recommendations), Support Manager (ticket ids + Gmail confirmation). Every agent has Window Buffer Memory so the thread stays human. Responses are sanitised before Respond to Webhook, so the shopper never sees n8n JSON. The same canvas handles bilingual English/Tamil and can hand a checkout link — discovery to transaction without a human agent on shift.",
+    problem:
+      "A multi-vendor marketplace cannot staff 24/7 chat in two languages and still look up real order rows and SKUs.",
+    solution:
+      "Webhook in, intent out, specialists on Supabase + Gmail. NiBot greets on thenimart.com: browse products, track order, today’s deals.",
+    liveUrl: "https://thenimart.com/",
+    status: "LIVE",
+    kind: "CLIENT",
+    industry: "Ecommerce / Marketplace",
+    year: 2026,
+    stack: ["n8n", "OpenAI", "Supabase", "Webhooks", "Gmail", "NiBot"],
+    results: [
+      "Live chat on thenimart.com (NiBot greeting + track-order chips)",
+      "Order status from Supabase, not a canned reply",
+      "Auto support tickets with unique ids + Gmail confirm",
+    ],
+    featured: true,
+    sortOrder: 8,
+    teamSlug: "automation",
+    usage:
+      "Shopper opens the blue chat chip on thenimart.com. Message hits the webhook with a session id. NiBot classifies intent. If they paste an order id, the Order Specialist reads Supabase and answers with real delivery state. If they name a category, the Concierge calls getProducts / getProductRecommendation and can return a checkout path. If they need help, Support Manager creates a ticket, emails them, and the widget confirms. Memory keeps “that biryani order” in context across turns. Tamil and English on the same flow.",
+    features: [
+      "Intent JSON from NiBot — no brittle keyword lists",
+      "Supabase for live orders and catalogue",
+      "Window Buffer Memory on every specialist",
+      "Bilingual English + Tamil",
+      "Ticket ids generated in Code nodes + Gmail",
+    ],
+    workflow: [
+      {
+        step: "01",
+        title: "Webhook + session",
+        body: "Chat widget posts the message and session id into n8n.",
+      },
+      {
+        step: "02",
+        title: "NiBot intent",
+        body: "AI agent appends intent (order_status, shopping, support_ticket). Code node extracts it for the Switch.",
+      },
+      {
+        step: "03",
+        title: "Specialists",
+        body: "Order Specialist ↔ Supabase. Shopping Concierge ↔ product DB. Support Manager ↔ tickets + Gmail.",
+      },
+      {
+        step: "04",
+        title: "Clean reply",
+        body: "Strip tooling markup. Respond to Webhook so the Thenimart chip shows a normal answer.",
+      },
+    ],
+    gallery: ["/automation/thenimart-chat.png"],
+  },
+  {
+    slug: "whatsapp-knowledge-agent",
+    title: "WhatsApp Knowledge Agent",
+    summary:
+      "Multimodal WhatsApp brain — text, images, PDF, and Excel into a vector store, then answers from the private knowledge base.",
+    content:
+      "This is the marketing/support WhatsApp agent: not a menu bot. WhatsApp Trigger receives the message. A Switch splits Text / Image / Document. Images go to OpenAI Vision for a description. PDFs and Excel are loaded to text. Everything is embedded and upserted into a vector store so the next question can retrieve. A Chain/Agent node mixes the live query + retrieved chunks + vision captions and replies on WhatsApp. Real-time use: a client drops a rate card, a product photo, or a policy PDF in chat; the agent answers from that file without a human opening Drive.",
+    problem:
+      "WhatsApp groups dump PDFs and product photos. Replies still come from whoever saw the chat last.",
+    solution:
+      "Vision + document loaders + embeddings + agent. The WhatsApp thread is the UI; the vector store is the memory.",
+    status: "LIVE",
+    kind: "PRODUCT",
+    industry: "WhatsApp / RAG",
+    year: 2026,
+    stack: ["n8n", "WhatsApp", "OpenAI Vision", "Embeddings", "Vector store"],
+    results: [
+      "Text, image, and PDF/Excel on one Switch",
+      "Private knowledge base searchable in chat",
+      "Reply stays inside WhatsApp — no extra portal",
+    ],
+    featured: true,
+    sortOrder: 9,
+    teamSlug: "automation",
+    usage:
+      "Customer or staff sends a WhatsApp. If it is a photo of a product or a board, Vision describes it. If it is a PDF/xlsx, loaders extract text and upsert into the vector store. The next question (“what is the GST on that SKU?”) retrieves the chunk and answers in the same thread. Operators do not re-upload files to a CMS; the chat is the ingest.",
+    features: [
+      "WhatsApp Trigger as the only frontend",
+      "OpenAI Vision on images",
+      "PDF + Excel loaders",
+      "Embeddings → vector store retrieval",
+      "Agent reply back on WhatsApp",
+    ],
+    workflow: [
+      {
+        step: "01",
+        title: "Trigger + switch",
+        body: "Incoming WhatsApp classified as text, image, or document.",
+      },
+      {
+        step: "02",
+        title: "Understand media",
+        body: "Vision captions images. Document loaders flatten PDF/Excel to text.",
+      },
+      {
+        step: "03",
+        title: "Index + retrieve",
+        body: "Embeddings land in the vector store. The agent queries it with the user’s question.",
+      },
+      {
+        step: "04",
+        title: "Reply",
+        body: "WhatsApp Send Response returns a sourced answer, not a hallucinated brochure.",
+      },
+    ],
+    gallery: ["/automation/whatsapp-agent-canvas.png"],
+  },
+  {
+    slug: "whatsapp-lead-capture",
+    title: "WhatsApp / Telegram Lead Capture",
+    summary:
+      "Voice, card photos, and PDFs in — structured contacts out. Google Sheet rows for name, company, phone, email, web, address.",
+    content:
+      "Field teams WhatsApp or Telegram a visiting card photo, a voice note, or a PDF. The workflow detects type, transcribes (Whisper on audio, GPT-4o Vision on images, PDF extract on docs), then an LLM pulls Name, Title, Company, Phone, Email, Website, Address, City, Country. JS cleans the JSON. Google Sheets appends a row. The same chat gets a confirmation. Proof sheet “Takedats” already holds real Theni rows — including Ennem Marketing and local operators — so this is not a demo with fake names.",
+    problem:
+      "Cards and voice intros never reach CRM. Snapvy covers the app path; this covers the chat path the team already lives in.",
+    solution:
+      "n8n WhatsApp/Telegram trigger → multimodal extract → Google Sheet. Optional vector upsert so the WhatsApp agent can recall the new contact.",
+    status: "LIVE",
+    kind: "PRODUCT",
+    industry: "CRM / Field sales",
+    year: 2026,
+    stack: ["n8n", "WhatsApp", "Telegram", "GPT-4o Vision", "Whisper", "Google Sheets"],
+    results: [
+      "Live sheet columns: name, title, company, phone, email, website, address",
+      "Real captured rows (ENNEM Marketing, local Theni businesses)",
+      "Confirmation message back on the same channel",
+    ],
+    featured: true,
+    sortOrder: 10,
+    teamSlug: "automation",
+    usage:
+      "On a shop floor, shoot the visiting card into the Ennem WhatsApp/Telegram bot. In under a minute the sheet has the person and the sender gets “details added.” Voice notes work the same way after Whisper. No one types columns on a laptop between meetings.",
+    features: [
+      "WhatsApp + Telegram triggers",
+      "Whisper for voice notes",
+      "GPT-4o Vision OCR on cards",
+      "PDF extract path",
+      "Google Sheets as the ops database",
+    ],
+    workflow: [
+      {
+        step: "01",
+        title: "Capture",
+        body: "Message hits WhatsApp or Telegram. Type detect: text, audio, image, PDF.",
+      },
+      {
+        step: "02",
+        title: "Transcribe",
+        body: "Whisper, Vision, or PDF extract collapse the input to text.",
+      },
+      {
+        step: "03",
+        title: "Parse + clean",
+        body: "LLM extracts contact fields. JS node sanitises formatting before the sheet write.",
+      },
+      {
+        step: "04",
+        title: "Log + confirm",
+        body: "Append Google Sheet row. Reply on chat. Optional upsert into the knowledge vector store.",
+      },
+    ],
+    gallery: ["/automation/telegram-lead-flow.png", "/automation/whatsapp-agent-canvas.png"],
+  },
+  {
+    slug: "telegram-expense-tracker",
+    title: "Telegram Expense Tracker",
+    summary:
+      "Voice, receipt photo, or PDF on Telegram → GPT-4o-mini JSON (vendor, GSTIN, amount, CGST/SGST) → Google Sheet → confirmation.",
+    content:
+      "Ops and founders dump expenses where they already talk: Telegram. The workflow accepts voice notes, receipt images, PDFs, or plain text. GPT-4o-mini is prompted to return a strict JSON array (date, vendor, GSTIN, amount, tax name/type/percent, destination of supply, GST treatment). A JS node sanitises the model output so a bad comma cannot break the sheet. Each line becomes a row with INR, exchange rate, reverse charge, and Tamil Nadu as destination when that is the fact. The bot replies with a personalised summary so the sender knows the book is updated without opening Sheets. Output columns match accounting handoff (Zoho-style GST fields), not a toy “amount + note” list.",
+    problem:
+      "Receipts live in camera rolls. By month-end nobody remembers GSTIN, tax split, or destination of supply.",
+    solution:
+      "Telegram in, structured GST row out. AI parse + JS clean + Google Sheets + instant Telegram ack.",
+    status: "LIVE",
+    kind: "PRODUCT",
+    industry: "Finance / Ops",
+    year: 2026,
+    stack: ["n8n", "Telegram", "GPT-4o-mini", "Whisper", "GPT-4o Vision", "Google Sheets"],
+    results: [
+      "Sheet rows for COM domain, Zoho Books, food — with CGST/SGST splits",
+      "GST treatment and destination of supply (Tamil Nadu) captured",
+      "Same-thread confirmation after every log",
+    ],
+    featured: true,
+    sortOrder: 11,
+    teamSlug: "automation",
+    usage:
+      "Forward a restaurant bill photo or say “Zoho Books Professional 4,500 GST” on Telegram. Whisper/Vision turns it into text; GPT-4o-mini fills the JSON; Sheets gets a bookkeeping-ready row; you get the ack. Accountant opens the sheet, not a WhatsApp archaeology session.",
+    features: [
+      "Telegram-only intake (voice, image, PDF, text)",
+      "GPT-4o-mini strict JSON expenses array",
+      "JS sanitiser before write",
+      "GST / CGST / SGST / reverse charge columns",
+      "Instant Telegram summary",
+    ],
+    workflow: [
+      {
+        step: "01",
+        title: "Telegram in",
+        body: "Voice → Whisper. Photo → Vision. PDF → extract. Text passes through.",
+      },
+      {
+        step: "02",
+        title: "Parse",
+        body: "GPT-4o-mini extracts date, vendor, GSTIN, amount, tax lines into JSON.",
+      },
+      {
+        step: "03",
+        title: "Clean",
+        body: "JS Code node fixes formatting so Sheets never gets a broken array.",
+      },
+      {
+        step: "04",
+        title: "Log + ack",
+        body: "Append row. Telegram sends the logged summary back to the same user.",
+      },
+    ],
+    gallery: ["/automation/expense-tracker-sheet.png"],
+  },
+  {
+    slug: "ai-marketing-team",
+    title: "AI Marketing Team",
+    summary:
+      "Six n8n “digital employees” in one folder: Search Images, Create Image, Edit Image, Blog Post, LinkedIn Post, Faceless Video.",
+    content:
+      "This is an n8n project folder — AI Marketing Team Workflows — six separate canvases that a marketer turns on per job instead of hiring six freelancers for one campaign week. Search Images pulls references. Create Image (DALL·E / Midjourney-class gen) makes originals from prompts. Edit Image applies brand passes. Blog Post drafts long-form. LinkedIn Post writes the professional cut. Faceless Video builds reel/short packages (script + stock/avatar path). They sit Inactive between campaigns on purpose: you activate the desk you need, run the job, then park it so tokens do not burn overnight. Real-time usage: strategy call in the morning, toggle Create Image + LinkedIn Post, ship assets before ads ops starts.",
+    problem:
+      "A Theni marketing desk cannot staff a writer, designer, and video editor for every client every week.",
+    solution:
+      "Six named workflows as digital employees. Activate per campaign. Same n8n credentials, separate executions.",
+    status: "LIVE",
+    kind: "PRODUCT",
+    industry: "Marketing ops",
+    year: 2025,
+    stack: ["n8n", "OpenAI", "DALL·E", "Image gen", "LinkedIn copy", "Faceless video"],
+    results: [
+      "Six workflows in one n8n folder (created 22 Dec 2025)",
+      "Image search / create / edit + blog + LinkedIn + faceless video",
+      "Idle when Inactive — no always-on token burn",
+    ],
+    featured: true,
+    sortOrder: 12,
+    teamSlug: "automation",
+    usage:
+      "Producer opens n8n → AI Marketing Team Workflows. Need a reel? Toggle Faceless Video, drop the brief, execute. Need a thought-leadership post? LinkedIn Post. Need a blog with a hero? Blog Post + Create Image. Each run is an Execution you can audit. Toggle back to Inactive when the batch is done.",
+    features: [
+      "Search Images",
+      "Create Image (generative)",
+      "Edit Image (brand pass)",
+      "Blog Post drafter",
+      "LinkedIn Post drafter",
+      "Faceless Video pipeline",
+    ],
+    workflow: [
+      {
+        step: "01",
+        title: "Pick the employee",
+        body: "Six canvases, one folder. Activate only the workflow the campaign needs.",
+      },
+      {
+        step: "02",
+        title: "Brief + execute",
+        body: "Prompt or source URL in. Image, copy, or video job runs as an n8n execution.",
+      },
+      {
+        step: "03",
+        title: "Handoff",
+        body: "Assets go to ads/ops or Ennem AI Studio for client publishing.",
+      },
+      {
+        step: "04",
+        title: "Park",
+        body: "Set Inactive so the desk does not keep calling image/video models overnight.",
+      },
+    ],
+    gallery: ["/automation/ai-marketing-workflows.png"],
+  },
+  {
     slug: "elquora",
     title: "Elquora",
     summary: "India’s menstrual-cup D2C store — medical-grade silicone, reusable for years.",
@@ -276,7 +628,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce", "SEO"],
     results: ["Live national D2C store"],
     featured: true,
-    sortOrder: 10,
+    sortOrder: 20,
     teamSlug: "wordpress",
   },
   {
@@ -295,7 +647,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce", "Multilingual"],
     results: ["Live store + wholesale funnel"],
     featured: true,
-    sortOrder: 11,
+    sortOrder: 21,
     teamSlug: "wordpress",
   },
   {
@@ -313,7 +665,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Live jewellery store"],
     featured: false,
-    sortOrder: 12,
+    sortOrder: 22,
     teamSlug: "wordpress",
   },
   {
@@ -331,7 +683,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Live D2C store"],
     featured: false,
-    sortOrder: 13,
+    sortOrder: 23,
     teamSlug: "wordpress",
   },
   {
@@ -349,7 +701,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Live sensory store"],
     featured: false,
-    sortOrder: 14,
+    sortOrder: 24,
     teamSlug: "wordpress",
   },
   {
@@ -367,7 +719,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Live jewellery ecommerce"],
     featured: false,
-    sortOrder: 15,
+    sortOrder: 25,
     teamSlug: "wordpress",
   },
   {
@@ -385,7 +737,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Live pet store"],
     featured: false,
-    sortOrder: 16,
+    sortOrder: 26,
     teamSlug: "wordpress",
   },
   {
@@ -405,7 +757,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce", "Custom App"],
     results: ["Live B2B store", "Internal app in development"],
     featured: false,
-    sortOrder: 17,
+    sortOrder: 27,
     teamSlug: "wordpress",
   },
   {
@@ -423,7 +775,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Live baby store"],
     featured: false,
-    sortOrder: 18,
+    sortOrder: 28,
     teamSlug: "wordpress",
   },
   {
@@ -442,7 +794,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "AI Video"],
     results: ["Live business site", "Ongoing AI reels"],
     featured: false,
-    sortOrder: 19,
+    sortOrder: 29,
     teamSlug: "wordpress",
   },
   {
@@ -460,7 +812,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress"],
     results: ["Live booking/enquiry site"],
     featured: false,
-    sortOrder: 20,
+    sortOrder: 30,
     teamSlug: "wordpress",
   },
   {
@@ -478,7 +830,7 @@ export const PROJECTS: Project[] = [
     stack: ["WordPress", "WooCommerce"],
     results: ["Listed on agency portfolio"],
     featured: false,
-    sortOrder: 21,
+    sortOrder: 31,
     teamSlug: "wordpress",
   },
 ];
@@ -862,7 +1214,7 @@ export const TECH_MAP: {
       {
         name: "n8n / Make / Zapier",
         why: "Client ops before a full Lumen tenant is worth the build.",
-        usedOn: ["AI Studio", "Client bots"],
+        usedOn: ["AI Studio", "Search audit", "NiBot", "WhatsApp agent"],
         status: "LIVE",
       },
       {
@@ -897,12 +1249,29 @@ export function getProject(slug: string) {
   return PROJECTS.find((p) => p.slug === slug);
 }
 
+export const N8N_SLUGS = [
+  "ai-search-audit",
+  "thenimart-nibot",
+  "whatsapp-knowledge-agent",
+  "whatsapp-lead-capture",
+  "telegram-expense-tracker",
+  "ai-marketing-team",
+] as const;
+
+export function n8nProjects() {
+  return PROJECTS.filter((p) => N8N_SLUGS.includes(p.slug as (typeof N8N_SLUGS)[number])).sort(
+    (a, b) => a.sortOrder - b.sortOrder,
+  );
+}
+
 export function featuredProjects() {
   return PROJECTS.filter((p) => p.featured).sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
 export function products() {
-  return PROJECTS.filter((p) => p.kind === "PRODUCT").sort((a, b) => a.sortOrder - b.sortOrder);
+  return PROJECTS.filter(
+    (p) => p.kind === "PRODUCT" && !N8N_SLUGS.includes(p.slug as (typeof N8N_SLUGS)[number]),
+  ).sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
 export function domainOf(url?: string) {

@@ -31,7 +31,7 @@ export function WorkGrid() {
       <SectionHeading
         kicker="Archive"
         title="Work"
-        body="Own products first. Then every live client URL we can verify. Tadbit stays URL COMING until confirmed."
+        body="Own products first, then n8n automations with real runs (TaskWagon audit, Thenimart NiBot, GST sheets). Client URLs we can verify come after."
       />
       <div className="mt-8 flex flex-wrap gap-2">
         {FILTERS.map((f) => (

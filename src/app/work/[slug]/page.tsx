@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { StatusPip } from "@/components/ui/ProjectCard";
-import { PROJECTS, domainOf, getProject } from "@/lib/data";
+import { PROJECTS, SITE, domainOf, getProject } from "@/lib/data";
 import { pageMeta } from "@/lib/seo";
-import { SITE } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -61,13 +61,17 @@ export default async function WorkDetailPage({ params }: Props) {
         {p.liveUrl ? (
           <Button href={p.liveUrl}>Visit {domainOf(p.liveUrl)}</Button>
         ) : (
-          <Button href="/contact">Request early access</Button>
+          <Button href="/contact">Run this on your stack</Button>
         )}
         {p.productHref ? (
           <Button href={p.productHref} variant="ghost">
             Product page
           </Button>
-        ) : null}
+        ) : (
+          <Button href="/contact" variant="ghost">
+            Hire automation
+          </Button>
+        )}
       </div>
 
       <section className="mt-14 grid gap-6 md:grid-cols-2">
@@ -76,12 +80,69 @@ export default async function WorkDetailPage({ params }: Props) {
           <p className="mt-3 text-sm text-white/70">{p.problem}</p>
         </div>
         <div className="glass p-5">
-          <h2 className="font-mono text-[10px] uppercase tracking-widest text-cyan">Solution</h2>
+          <h2 className="font-mono text-[10px] uppercase tracking-widest text-cyan">What we built</h2>
           <p className="mt-3 text-sm text-white/70">{p.solution}</p>
         </div>
       </section>
-      <p className="mt-8 text-base leading-relaxed text-white/70">{p.content}</p>
-      <ul className="mt-8 space-y-2">
+
+      {p.usage ? (
+        <section className="mt-12">
+          <h2 className="font-display text-2xl text-white">How it runs in real time</h2>
+          <p className="mt-4 text-base leading-relaxed text-white/70">{p.usage}</p>
+        </section>
+      ) : null}
+
+      {p.workflow?.length ? (
+        <section className="mt-12">
+          <h2 className="font-display text-2xl text-white">Pipeline</h2>
+          <ol className="mt-6 grid gap-4 md:grid-cols-2">
+            {p.workflow.map((step) => (
+              <li key={step.step} className="border border-white/10 p-5">
+                <p className="font-display text-2xl text-ember">{step.step}</p>
+                <h3 className="mt-2 font-display text-lg">{step.title}</h3>
+                <p className="mt-2 text-sm text-white/55">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {p.features?.length ? (
+        <section className="mt-12">
+          <h2 className="font-display text-2xl text-white">In the canvas</h2>
+          <ul className="mt-5 space-y-2">
+            {p.features.map((f) => (
+              <li key={f} className="font-mono text-xs text-lime">
+                ▸ {f}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      <p className="mt-10 text-base leading-relaxed text-white/70">{p.content}</p>
+
+      {p.gallery?.length ? (
+        <section className="mt-12">
+          <h2 className="font-display text-2xl text-white">Proof</h2>
+          <div className="mt-6 grid gap-4">
+            {p.gallery.map((src) => (
+              <div key={src} className="relative overflow-hidden border border-white/10">
+                <Image
+                  src={src}
+                  alt={`${p.title} workflow proof`}
+                  width={1200}
+                  height={720}
+                  className="h-auto w-full"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <h2 className="mt-12 font-display text-2xl text-white">Results</h2>
+      <ul className="mt-5 space-y-2">
         {p.results.map((r) => (
           <li key={r} className="font-mono text-xs text-lime">
             ▸ {r}
